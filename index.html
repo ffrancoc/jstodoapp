@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+    <title>Javascript Todo App</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row text-center m-2">
+            <h1>Javascript <span class="fw-bold">Todo App</span></h1>
+        </div>
+        <div class="row p-2">
+            <div class="col-sm-12 col-md-10 mt-2"><input type="text" class="form-control" id="todo"
+                    placeholder="Nombre de la tarea"></div>
+            <div class="col-sm-12 col-md-2 mt-1 d-grid"><button class="btn btn-primary" id="btn-addtodo"
+                    onclick="addTodoToList()"><span class="bi bi-calendar-plus-fill"></span> AGREGAR TAREA</button>
+            </div>
+        </div>
+
+        <div class="row mt-3 p-2">
+            <h4>Lista de Tareas</h4>
+            <ul class="list-group" id="todo-list"></ul>
+        </div>
+    </div>
+</body>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/index.js"></script>
+
+</html>
