@@ -27,7 +27,7 @@ const todoItemIdColumn = (id, status) => {
 
 const todoItemTextColumn = (text, status) => {
     let div = document.createElement('div')
-    div.className = 'col-sm-12 col-md-9'
+    div.className = 'col-sm-12 col-md-8'
 
     let span = document.createElement('span')
     span.className = (status) ? 'text-decoration-line-through' : 'fw-normal'
@@ -39,9 +39,21 @@ const todoItemTextColumn = (text, status) => {
 
 }
 
+
 const todoItemAction = () => {
     let div = document.createElement('div')
-    div.className = 'col-sm-12 col-md-2 d-grid'
+    div.className = 'col-sm-12 col-md-3 d-flex gap-2'
+
+
+    let buttonIconModificar = document.createElement('span')
+    buttonIconModificar.className = 'bi bi-pencil-square'
+
+    let buttonModificar = document.createElement('button')
+    buttonModificar.className = 'btn btn-success'
+    buttonModificar.innerHTML = ' Modificar'
+    buttonModificar.prepend(buttonIconModificar)
+    buttonModificar.onclick = (event) => modificarTarea(event)
+
 
     let buttonIcon = document.createElement('span')
     buttonIcon.className = 'bi bi-trash-fill'
@@ -52,6 +64,7 @@ const todoItemAction = () => {
     button.prepend(buttonIcon)
     button.onclick = (event) => eliminarTarea(event)
 
+    div.appendChild(buttonModificar)
     div.appendChild(button)
     return div
 }
@@ -62,7 +75,7 @@ const todoItem = (todo) => {
     row.className = 'row'
 
     let colId = todoItemIdColumn(todo.id, todo.status)
-    let colText = todoItemTextColumn(todo.text, todo.status)
+    let colText = todoItemTextColumn(todo.text, todo.status)    
     let colAction = todoItemAction()
 
     row.appendChild(colId)
@@ -124,6 +137,24 @@ const eliminarTarea = (event) => {
     localStorage.setItem('todos', JSON.stringify(todoStore))
 }
 
+
+const modificarTarea = (event) => {
+    let todoItem= event.target.parentNode.parentNode.parentNode
+    let  span = todoItem.querySelector('#todoText')
+    let todoID = todoItem.querySelector('#todoID').innerHTML // Obtener el valor del ID del span
+        
+    let texto = span.innerHTML || span.textContent
+    let value = prompt('Modificar Tarea', texto)
+    if (!!value && value != texto) {
+        span.textContent = value
+        todoStore.map(item => {
+            if (item.id == todoID) {
+                item.text = value
+                localStorage.setItem('todos', JSON.stringify(todoStore))
+            }
+        })        
+    }    
+}
 
 todoText.addEventListener('keyup', (event) => {
     if (event.code === 'Enter' && !!event.target.value) {
